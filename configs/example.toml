@@ -1,0 +1,39 @@
+# UaaLAnalyzer 設定のひな形。コピーして自分のアプリ用に書き換える (または `uaal init` で作る)。
+# data_dir = "C:/path/to/data"
+
+[device]
+# SIGQUIT を送る (run-as) 対象のパッケージ名。debuggable なビルドが必要。
+package = "com.example.app"
+serial = ""
+adb = "adb"
+
+[ndk]
+bin_dir = "C:/path/to/Android/Sdk/ndk/<version>/toolchains/llvm/prebuilt/windows-x86_64/bin"
+
+[symbols]
+# 存在しないパスは無視する。BuildId はサイズと更新時刻でキャッシュされる。
+search_paths = [
+    "C:/path/to/unity-project/androidBuild/unityLibrary/symbols",
+    "C:/path/to/unity-project/androidBuild/unityLibrary/src/main/jniLibs",
+]
+patterns = ["*.so"]
+# 名前付きで解決対象にするモジュール。APK 内の無名の共有ライブラリは BuildId で自動的に対象になる。
+modules = ["libil2cpp.so"]
+
+[capture]
+samples = 5
+interval_sec = 2.0
+bugreport_timeout_sec = 900
+time_margin_sec = 30
+
+[analysis]
+main_thread_names = ["UnityMain"]
+min_common_frames = 5
+# 共通の停止経路が、サンプル中の最大の経路の深さに占める割合の下限。
+min_common_ratio = 0.8
+busy_ratio = 0.5
+idle_ratio = 0.05
+# 「停止起点」とみなす自社アセンブリ (il2cppOutput 配下の生成ファイル名から求める)。
+app_assemblies = ["Contoso.*"]
+# 空なら全規則を有効化する。
+rules = []
