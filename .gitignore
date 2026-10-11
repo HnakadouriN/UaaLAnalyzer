@@ -1,0 +1,14 @@
+data/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+build/
+dist/
+configs/*.toml
+!configs/example.toml
+*.log
+pytest_*.txt
+tests/private/
+docs/
